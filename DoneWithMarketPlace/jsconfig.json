@@ -1,0 +1,4 @@
+// tells vs code to treat this project  as a javascript project
+{
+    "exclude": ["node_modules"]
+}
