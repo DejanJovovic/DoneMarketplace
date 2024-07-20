@@ -1,11 +1,8 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 import Screen from "../components/screen";
-import { Formik } from "formik";
 import * as Yup from "yup";
-import AppFormField from "../components/AppFormField";
-import AppTextInput from "../components/AppTextInput";
-import SubmitButton from "../components/SubmitButton";
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -16,35 +13,31 @@ function LoginScreen(props) {
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo.png")} />
-      <Formik
+      <AppForm
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        {() => (
-          <>
-            <AppFormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="email"
-              name="email"
-              keyboardType="email-address"
-              placeholder="Email"
-              textContentType="emailAddress"
-            />
-            <AppFormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="lock"
-              name="password"
-              secureTextEntry
-              placeholder="Password"
-              textContentType="password"
-            />
-            <SubmitButton />
-          </>
-        )}
-      </Formik>
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="email"
+          name="email"
+          keyboardType="email-address"
+          placeholder="Email"
+          textContentType="emailAddress"
+        />
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="lock"
+          name="password"
+          secureTextEntry
+          placeholder="Password"
+          textContentType="password"
+        />
+        <SubmitButton />
+      </AppForm>
     </Screen>
   );
 }
