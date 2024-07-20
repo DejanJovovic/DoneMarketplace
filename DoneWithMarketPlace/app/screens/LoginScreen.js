@@ -1,12 +1,11 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 import Screen from "../components/screen";
-import AppTextInput from "../components/AppTextInput";
-import AppButton from "../components/AppButton";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import AppText from "../components/AppText";
-import ErrorMessage from "../components/ErrorMessage";
+import AppFormField from "../components/AppFormField";
+import AppTextInput from "../components/AppTextInput";
+import SubmitButton from "../components/SubmitButton";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -22,29 +21,27 @@ function LoginScreen(props) {
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
+        {() => (
           <>
-            <AppTextInput
+            <AppFormField
               autoCapitalize="none"
               autoCorrect={false}
               icon="email"
+              name="email"
               keyboardType="email-address"
-              onBlur={() => setFieldTouched("email")}
-              onChange={handleChange("email")}
               placeholder="Email"
+              textContentType="emailAddress"
             />
-            <ErrorMessage error={errors.email} visible={touched.email} />
-            <AppTextInput
+            <AppFormField
               autoCapitalize="none"
               autoCorrect={false}
               icon="lock"
-              onChangeText={handleChange("password")}
-              onBlur={() => setFieldTouched("password")}
+              name="password"
               secureTextEntry
               placeholder="Password"
+              textContentType="password"
             />
-            <ErrorMessage error={errors.password} visible={touched.password} />
-            <AppButton title="Login" onPress={handleSubmit} />
+            <SubmitButton />
           </>
         )}
       </Formik>
